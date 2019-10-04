@@ -1,52 +1,32 @@
 import { Component, OnInit } from '@angular/core';
-import { RegistroService } from '../../services/registro.service';
-import { UsuarioModel } from '../../interfaces/registro.interface';
 import { Router } from '@angular/router';
 import { NgForm } from '@angular/forms';
-import { AngularFirestore } from '@angular/fire/firestore';
-import { Policy } from '../../interfaces/policy.model';
+
+import { UsuarioModel } from '../../models/usuario.model';
+import { AuthService } from '../../services/auth.service';
+
 import Swal from 'sweetalert2';
+
 @Component({
   selector: 'app-registro',
   templateUrl: './registro.component.html',
   styleUrls: ['./registro.component.css']
 })
 export class RegistroComponent implements OnInit {
+
   usuario: UsuarioModel;
   recordarme = false;
 
-  policies: Policy[];
+  constructor( private auth: AuthService,
+               private router: Router ) { }
 
-  constructor(private auth: RegistroService,
-              private router: Router,
-              private firestore: AngularFirestore) {}
   ngOnInit() {
-    this.auth.getPolicies().subscribe(data => {
-      this.policies = data.map(e => {
-        return {
-          id: e.payload.doc.id,
-          ...e.payload.doc.data()
-        } as Policy;
-      })
-    });
-
     this.usuario = new UsuarioModel();
   }
-  create(data: Policy) {
-    this.auth.createPolicy(data);
-  }
 
-  update(policy: Policy) {
-    this.auth.updatePolicy(policy);
-  }
+  onSubmit( form: NgForm ) {
 
-  delete(id: string) {
-    this.auth.deletePolicy(id);
-  }
-  onSubmit(form: NgForm) {
-    if (form.invalid) { return; }
-    this.usuario = new UsuarioModel();
-    this.firestore.collection('usuarios').add(this.usuario);
+    if ( form.invalid ) { return; }
 
     Swal.fire({
       allowOutsideClick: false,
@@ -54,12 +34,14 @@ export class RegistroComponent implements OnInit {
       text: 'Espere por favor...'
     });
     Swal.showLoading();
-    this.auth.nuevoUsuario(this.usuario)
-      .subscribe(resp => {
+
+    this.auth.nuevoUsuario( this.usuario )
+      .subscribe( resp => {
+
         console.log(resp);
         Swal.close();
 
-        if (this.recordarme) {
+        if ( this.recordarme ) {
           localStorage.setItem('email', this.usuario.email);
         }
 
@@ -74,4 +56,6 @@ export class RegistroComponent implements OnInit {
         });
       });
   }
+
+
 }

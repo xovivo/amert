@@ -17,7 +17,6 @@ import { ItemComponent } from './pages/item/item.component';
 import { SearchComponent } from './pages/search/search.component';
 import { LoginComponent } from './pages/login/login.component';
 import { RegistroComponent } from './pages/registro/registro.component';
-import { RegistroService } from './services/registro.service';
 
 import { AngularFireModule } from '@angular/fire';
 import { AngularFirestoreModule } from '@angular/fire/firestore';
@@ -52,7 +51,7 @@ import { ServiceWorkerModule } from '@angular/service-worker';
     AngularFireStorageModule, // storage
     HttpClientModule, ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production })
   ],
-  providers: [RegistroService],
+  providers: [],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -1764,6 +1764,10 @@ h3.entry-title {
 }
 
 .bottom-footer {
+    position: absolute;
+    width: 100%;
+    bottom: 0;
+    position: fixed;
     padding: 40px 0 20px;
 }
 
