@@ -12,6 +12,7 @@ import { DashboardComponent } from './pages/dashboard/dashboard.component';
 import { ProgressComponent } from './pages/progress/progress.component';
 import { Graficas1Component } from './pages/graficas1/graficas1.component';
 import { PagesComponent } from './pages/pages.component';
+import { NopagefoundComponent } from './shared/nopagefound/nopagefound.component';
 // tslint:disable-next-line:variable-name
 const app_routes: Routes = [
       {
@@ -30,7 +31,8 @@ const app_routes: Routes = [
     { path: 'registro', component: RegistroComponent },
     { path: 'item/:id', component: ItemComponent },
     { path: 'search/:termino', component: SearchComponent },
-    { path: '**', redirectTo: 'home', pathMatch: 'full' }
+    // { path: '**', redirectTo: 'home', pathMatch: 'full' }
+    { path: '**', component: NopagefoundComponent }
 ];
 
 
@@ -43,7 +45,7 @@ const app_routes: Routes = [
     ]
 })
 export class AppRoutingModule { }
-// export const APP_ROUTING = RouterModule.forRoot(app_routes);
+export const APP_ROUTES = RouterModule.forRoot( app_routes, { useHash: true } );
 
 
 
