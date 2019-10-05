@@ -8,15 +8,29 @@ import { SearchComponent } from './pages/search/search.component';
 import { LoginComponent } from './pages/login/login.component';
 import { RegistroComponent } from './pages/registro/registro.component';
 import { AuthGuard } from './guards/auth.guard';
+import { DashboardComponent } from './pages/dashboard/dashboard.component';
+import { ProgressComponent } from './pages/progress/progress.component';
+import { Graficas1Component } from './pages/graficas1/graficas1.component';
+import { PagesComponent } from './pages/pages.component';
 // tslint:disable-next-line:variable-name
 const app_routes: Routes = [
-    { path: 'home', component: PortafolioComponent, canActivate: [ AuthGuard ] },
+      {
+        path: '',
+        component: PagesComponent,
+        children: [
+            { path: 'dashboard', component: DashboardComponent, canActivate: [ AuthGuard ] },
+            { path: 'progress', component: ProgressComponent },
+            { path: 'graficas1', component: Graficas1Component },
+            { path: '', redirectTo: '/dashboard', pathMatch: 'full' }
+        ]
+    },
+    { path: 'home', component: PortafolioComponent },
     { path: 'about', component: AboutComponent },
     { path: 'login', component: LoginComponent },
     { path: 'registro', component: RegistroComponent },
     { path: 'item/:id', component: ItemComponent },
     { path: 'search/:termino', component: SearchComponent },
-    { path: '**', pathMatch: 'full', redirectTo: 'home' }
+    { path: '**', redirectTo: 'home', pathMatch: 'full' }
 ];
 
 
