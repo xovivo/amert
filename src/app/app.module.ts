@@ -32,7 +32,6 @@ import { AngularFireStorageModule } from '@angular/fire/storage';
 import { AngularFireAuthModule } from '@angular/fire/auth';
 import { AngularFireDatabaseModule } from '@angular/fire/database';
 import { environment } from '../environments/environment';
-import { ServiceWorkerModule } from '@angular/service-worker';
 
 
 @NgModule({
